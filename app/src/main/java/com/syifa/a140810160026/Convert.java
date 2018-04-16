@@ -2,53 +2,58 @@ package com.syifa.a140810160026;
 
 /**
  * Created by yana on 11-Apr-18.
+ * Improved by fahmi on 16-Apr-2018
  */
 
 public class Convert {
 
-    double c,r,f,k;
+    private String satuan;
+    private double currentVal;
+    private double valInCelcius;
 
-    public void KonversiCelcius(double c){
-        this.c = c;
-        this.r = c * 4/5;
-        this.f = (c * 9/5) + 32;
-        this.k = c+273;
-    };
+    public Convert(double val, String satuan) {
+        this.satuan = satuan;
+        this.currentVal = val;
+        this.convertToCelcius();
+    }
 
-    public void KonversiReamur(double r){
-        this.c = r * 5/4;
-        this.r = r;
-        this.f = (r * 9/4) + 32;
-        this.k = this.c +273;
-    };
+    private void convertToCelcius() {
+        switch (this.satuan) {
+            case Keys.CELCIUS:
+                this.valInCelcius = this.currentVal;
+                break;
 
-    public void KonversiFarenheit(double f){
-        this.c = (f - 32) * 5/9;
-        this.r = (f - 32) * 4/9;
-        this.f = f;
-        this.k = (f - 32) * 5/9 + 273;
-    };
+            case Keys.REAMUR:
+                this.valInCelcius = this.currentVal * 5/4;
+                break;
 
-    public void KonversiKelvin(double k){
-        this.c = k - 273;
-        this.r = (k - 273) * 4/5;
-        this.f = (k - 273) * 9/5 + 32;
-        this.k = k;
-    };
+            case Keys.KELVIN:
+                this.valInCelcius = this.currentVal - 273;
+                break;
+
+            case Keys.FAHRENHEIT:
+                this.valInCelcius = (this.currentVal - 32) * 5/9;
+                break;
+
+            default:
+                break;
+        }
+    }
+
 
     public double getCelcius() {
-        return c;
+        return this.valInCelcius;
     }
 
     public double getFarenheit() {
-        return f;
+        return (this.getCelcius() * 9/5) + 32;
     }
 
     public double getKelvin() {
-        return k;
+        return this.getCelcius() + 273;
     }
 
     public double getReamur() {
-        return r;
+        return this.getCelcius() * 4/5;
     }
 }
